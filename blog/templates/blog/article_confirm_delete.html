@@ -1,0 +1,63 @@
+<style>
+    .delete-container {
+    max-width: 500px;
+    margin: 100px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #dc3545;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+form {
+    margin-bottom: 15px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #c82333;
+}
+
+.cancel {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    background-color: #6c757d;
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+.cancel:hover {
+    background-color: #5a6268;
+}
+
+</style>
+
+<div class="delete-container">
+    <h1>Удалить статью "{{ article.title }}"?</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Удалить</button>
+    </form>
+
+    <a href="{% url 'article_list' %}" class="cancel">Отмена</a>
+</div>

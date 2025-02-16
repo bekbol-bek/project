@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/style.css' %}">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 20px;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+li {
+    background: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+li a {
+    margin-right: 15px;
+}
+
+small {
+    color: gray;
+    font-size: 0.9em;
+}
+
+img {
+    margin-top: 10px;
+    border-radius: 8px;
+}
+        .add-button {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    background-color: #007bff;
+    color: white;
+    border-radius: 50%;
+    text-decoration: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.add-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+}
+
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    max-width: 500px;
+    background: white;
+    padding: 10px;
+    border-radius: 25px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 25px;
+    outline: none;
+    font-size: 16px;
+    width: 100%;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-left: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+
+
+    </style>
+</head>
+<body>
+<h1>Список статей</h1>
+<form method="GET" action="{% url 'article_search' %}">
+    <input type="text" name="q" placeholder="Введите запрос...">
+    <button type="submit">Найти</button>
+</form>
+<ul><a href="{% url 'article_create' %}" class="add-button">+</a>
+
+    {% for article in articles %}
+        <li>
+            <a href="{% url 'article_detail' article.id %}">{{ article.title }}</a>
+            <a href="{% url 'article_update' article.id %}">Редактировать</a>
+            <small>Опубликовано: {{ article.created_at|date:"d.m.Y H:i" }}</small>
+
+            {% if article.image %}
+                <br><img src="{{ article.image.url }}"  width="200">
+            {% endif %}
+        </li>
+
+    {% endfor %}
+
+
+</ul>
+</body>
+</html>

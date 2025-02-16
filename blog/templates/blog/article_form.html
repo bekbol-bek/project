@@ -1,0 +1,74 @@
+
+<style>
+    .form-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form p {
+    margin-bottom: 15px;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.cancel {
+    display: inline-block;
+    text-align: center;
+    margin-top: 15px;
+    color: #dc3545;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.cancel:hover {
+    text-decoration: underline;
+}
+
+</style>
+<div class="form-container">
+    <h1>{% if form.instance.pk %}Редактировать статью{% else %}Добавить статью{% endif %}</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Сохранить</button>
+    </form>
+
+    <a href="{% url 'article_list' %}" class="cancel">Отмена</a>
+</div>
